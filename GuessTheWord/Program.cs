@@ -22,6 +22,7 @@ namespace GuessTheWord
             {
                 Console.WriteLine($"Du har {wordGame.AttemptsLeft()} försök kvar.");
                 Console.WriteLine($"Ordet är: {wordGame.GetHiddenWord()}");
+                Console.WriteLine($"Blandade bokstäver: {wordGame.GetScrambledWord()}");
                 Console.Write("Gissa ordet: ");
                 string guess = Console.ReadLine() ?? "";
                 hasWon = wordGame.Guess(guess);

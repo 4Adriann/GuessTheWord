@@ -15,12 +15,15 @@ namespace GuessTheWord
         private string _secretWord;
         private int _attemptsLeft;
         private int _lettersShown;
+        private string _scrambledWord;
 
         public WordGame(string secretWord)
         {
             _secretWord = secretWord;
+            _scrambledWord = ShuffleLetters(secretWord);
             _attemptsLeft = 5;
             _lettersShown = 1;
+
         }
 
         public string GetHiddenWord()
@@ -54,7 +57,7 @@ namespace GuessTheWord
 
             _attemptsLeft--;
 
-            if (_attemptsLeft < _secretWord.Length - 1)
+            if (_lettersShown < _secretWord.Length - 1)
             {
                 _lettersShown++;
             }
@@ -71,6 +74,25 @@ namespace GuessTheWord
         public string GetSecretWord()
         {
             return _secretWord;
+        }
+
+        // Claude helped me fix the problem that the words scrambled showed which letter came first by it being big. Hint still shows first letter but thats fine. 
+        public string GetScrambledWord()
+        {
+            return _scrambledWord;
+        }
+        private string ShuffleLetters(string word)
+        {
+            char[] letters = word.ToLower().ToCharArray();
+            Random random = new Random();
+            for (int i = letters.Length - 1; i > 0; i--)
+            {
+                int j = random.Next(0, i + 1);
+                char temp = letters[i];
+                letters[i] = letters[j];
+                letters[j] = temp;
+            }
+            return new string(letters);
         }
     }
 }
